@@ -1,0 +1,23 @@
+version: '3'
+services:
+  postgres:
+    container_name: itservice-db
+    image: "postgres:15"
+    restart: always
+    ports:
+      - "5435:5435"
+    environment:
+      POSTGRES_DB: itservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: omonov2006
+  spring-app:
+    container_name: spring-education-test
+    build:
+      context: ./itliveservice
+    restart: always
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://itservice-db:5432/itservice
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: omonov2006
